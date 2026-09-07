@@ -1,0 +1,7 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1>This link has expired</h1>
+	<p class="lede">Whatever was here has been deleted. Shares are removed automatically once their time is up, and deleted files cannot be recovered.</p>
+	<p>If you still need the files, ask whoever sent you the link to upload them again.</p>
+</div>
+<%~ include("@partials/foot", it) %>

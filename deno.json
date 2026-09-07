@@ -1,0 +1,48 @@
+{
+	"name": "private-share",
+	"version": "0.1.0",
+	"exports": "./src/main.js",
+	"tasks": {
+		"dev": "deno task build && APP_ENV=development deno run --unstable-kv --env-file --allow-net --allow-env --allow-read --allow-write --watch src/main.js",
+		"start": "APP_ENV=production deno run --unstable-kv --allow-net --allow-env --allow-read src/main.js",
+		"build": "deno run --allow-env --allow-read --allow-write --allow-run --allow-net scripts/build.js",
+		"test": "APP_ENV=test deno test --allow-env --allow-read --allow-write --allow-run --allow-net --no-check tests/",
+		"test:unit": "APP_ENV=test deno test --allow-env --allow-read --no-check tests/unit/ tests/render/",
+		"test:leak": "APP_ENV=test deno test --allow-all --no-check tests/build/",
+		"preflight": "APP_ENV=test KEEP_BUILD=1 deno test --allow-all --no-check tests/",
+		"fmt": "deno fmt",
+		"lint": "deno lint",
+		"test:integration": "APP_ENV=test deno test --allow-env --allow-read --no-check tests/integration/",
+		"check": "deno task lint && deno task test"
+	},
+	"imports": {
+		"@paralleldrive/cuid2": "npm:@paralleldrive/cuid2@2.3.1",
+		"@webbower/stdlib/lang": "./src/lib/stdlib/lang.js",
+		"esbuild": "npm:esbuild@0.24.2",
+		"eta": "npm:eta@3.5.0",
+		"fflate": "npm:fflate@0.8.3",
+		"hono": "npm:hono@4.13.5",
+		"hono/": "npm:/hono@4.13.5/",
+		"node-html-parser": "npm:node-html-parser@6.1.13",
+		"~/": "./src/"
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 110,
+		"semiColons": true,
+		"singleQuote": false
+	},
+	"lint": {
+		"rules": {
+			"tags": [
+				"recommended"
+			]
+		}
+	},
+	"exclude": [
+		"static/dist",
+		"node_modules",
+		".build"
+	],
+	"nodeModulesDir": "auto"
+}

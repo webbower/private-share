@@ -1,0 +1,8 @@
+</main>
+<footer class="footer">
+	<p>Files here are deleted automatically when they expire. Nothing is kept afterwards.</p>
+</footer>
+</div>
+<% if (clientScript) { %><script type="module" src="<%= clientScript %>"></script><% } %>
+</body>
+</html>

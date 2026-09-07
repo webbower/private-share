@@ -1,0 +1,10 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1>Check your email</h1>
+	<p class="lede">If <span class="code"><%= email %></span> is allowed to upload here, a sign-in link is on its way.</p>
+	<p>The link works once and expires after 15 minutes. If nothing arrives, check the spam folder, then try again.</p>
+	<div class="actions">
+		<a class="btn btn--quiet" href="/auth/sign-in">Use a different address</a>
+	</div>
+</div>
+<%~ include("@partials/foot", it) %>

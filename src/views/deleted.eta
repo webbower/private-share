@@ -1,0 +1,6 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1>Deleted</h1>
+	<p class="lede">The files are gone and the share link no longer works. Anyone you sent it to will see an expiry message.</p>
+</div>
+<%~ include("@partials/foot", it) %>

@@ -1,0 +1,6 @@
+<% if (flash) { %>
+<div class="notice notice--<%= flash.kind %>" role="<%= flash.kind === "error" ? "alert" : "status" %>">
+	<% if (flash.heading) { %><p class="notice__heading"><%= flash.heading %></p><% } %>
+	<p><%= flash.message %></p>
+</div>
+<% } %>

@@ -1,0 +1,95 @@
+<%~ include("@partials/head", it) %>
+<%
+/*
+ * Accept either `items` (one entry per independent share — several files
+ * uploaded without the collection box) or the single-share locals the
+ * collection / one-file paths pass directly. Everything below iterates `slips`.
+ */
+var slips = (typeof items !== "undefined" && items && items.length)
+	? items
+	: [{
+		share: share,
+		shareUrl: shareUrl,
+		deleteUrl: deleteUrl,
+		pin: (typeof pin !== "undefined" ? pin : null),
+	}];
+var many = slips.length > 1;
+var first = slips[0].share;
+var anyPin = slips.some(function (slip) { return slip.pin; });
+/* Keep the ids un-suffixed in the common single-share case. */
+var fieldId = function (base, i) { return many ? base + "-" + i : base; };
+%>
+<div class="sheet">
+	<h1><%= many ? "Files ready" : (first.isCollection ? "Collection ready" : "File ready") %></h1>
+	<p class="lede">
+		<% if (many) { %>
+		<%= slips.length %> files, uploaded separately &mdash; each has its own link and delete URL below,
+		and expires on its own <%= relativeExpiry(first.expiresAt, now) %>, on <%= formatDate(first.expiresAt) %>.
+		<% } else { %>
+		<%= first.isCollection ? first.fileCount + " files" : first.title %>,
+		<%= first.displayTotalSize %>. Deleted <%= relativeExpiry(first.expiresAt, now) %>,
+		on <%= formatDate(first.expiresAt) %>.
+		<% } %>
+	</p>
+</div>
+
+<% slips.forEach(function (slip, i) { %>
+<div class="slip">
+	<% if (many) { %>
+	<p class="slip__heading"><%= slip.share.title %>
+		<span class="muted">&middot; <%= slip.share.files[0].displaySize %></span></p>
+	<% } %>
+
+	<%~ include("@partials/copyfield", {
+		id: fieldId("share-url", i),
+		label: "Share link",
+		value: slip.shareUrl,
+		open: slip.shareUrl,
+		note: many ? "" : "Send this to whoever needs the files.",
+	}) %>
+
+	<% if (slip.pin) { %>
+	<div class="slip__row">
+		<span class="slip__label">PIN</span>
+		<div class="copyfield">
+			<input id="<%= fieldId("share-pin", i) %>" class="pin-display" type="text" value="<%= slip.pin %>"
+				readonly spellcheck="false" aria-describedby="<%= fieldId("share-pin", i) %>-note"
+				size="<%= pinLength %>">
+			<button type="button" class="btn btn--copy" data-copy-for="<%= fieldId("share-pin", i) %>"
+				aria-label="Copy PIN">Copy</button>
+		</div>
+		<p class="slip__note" id="<%= fieldId("share-pin", i) %>-note">Whoever opens the link has to type this in first.</p>
+	</div>
+	<% } %>
+
+	<%~ include("@partials/copyfield", {
+		id: fieldId("delete-url", i),
+		label: "Delete link",
+		value: slip.deleteUrl,
+		note: many ? "" : "Open this to remove the files early. Keep it to yourself.",
+	}) %>
+</div>
+<% }); %>
+
+<% if (anyPin) { %>
+<div class="notice notice--keep">
+	<p class="notice__heading">Write <%= many ? "the PINs" : "the PIN" %> down now</p>
+	<p>This is the only time <%= many ? "they" : "it" %> will be shown. <%= many ? "They are" : "It is" %> not
+		stored anywhere we can read, so a lost PIN means deleting that share and uploading again.</p>
+</div>
+<% } %>
+
+<div class="sheet">
+	<h2>Sharing this safely</h2>
+	<ul class="tips">
+		<li>Send the link and the PIN separately &mdash; the link by email, the PIN by text or in person. Anyone who intercepts one message then has only half of it.</li>
+		<li>Anyone holding the link can open the share. Treat it like the files themselves rather than like a password-protected account.</li>
+		<li>The delete link works for anyone who has it, so do not post it anywhere you post the share link.</li>
+		<li>Pick the shortest expiry you can live with. It is the only cleanup that happens on its own.</li>
+		<li>Public posts get crawled within seconds. The PIN is what stops those crawlers, so use one whenever the link goes somewhere public.</li>
+	</ul>
+	<div class="actions">
+		<a class="btn btn--quiet" href="/">Upload something else</a>
+	</div>
+</div>
+<%~ include("@partials/foot", it) %>

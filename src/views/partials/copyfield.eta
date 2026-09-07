@@ -1,0 +1,14 @@
+<div class="slip__row">
+	<label class="slip__label" for="<%= id %>"><%= label %></label>
+	<div class="copyfield">
+		<input id="<%= id %>" class="code" type="text" value="<%= value %>" readonly spellcheck="false"
+			aria-describedby="<%= id %>-note">
+		<button type="button" class="btn btn--copy" data-copy-for="<%= id %>"
+			aria-label="Copy <%= label %>">Copy</button>
+		<% if (typeof open !== "undefined" && open) { %>
+		<a class="btn btn--copy" href="<%= open %>" target="_blank" rel="noopener"
+			aria-label="Open <%= label %> in a new tab">Open</a>
+		<% } %>
+	</div>
+	<p class="slip__note" id="<%= id %>-note"><%= note %></p>
+</div>

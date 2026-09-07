@@ -1,0 +1,13 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1><%= share.title %></h1>
+	<ul class="facts">
+		<li><%= share.files[0].displaySize %></li>
+		<li>Deleted <%= relativeExpiry(share.expiresAt, now) %></li>
+	</ul>
+	<% if (share.files[0].filename !== share.title) { %>
+	<p class="muted">Saves as <span class="code"><%= share.files[0].filename %></span></p>
+	<% } %>
+	<a class="btn btn--block" href="/s/<%= share.id %>/f/<%= share.files[0].id %>/download" rel="nofollow">Download</a>
+</div>
+<%~ include("@partials/foot", it) %>

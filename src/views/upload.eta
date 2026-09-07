@@ -1,0 +1,57 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1>Send some files</h1>
+	<p class="lede">Drop files below, choose how long they should last, and you will get a link to share.</p>
+
+	<%~ include("@partials/flash", it) %>
+
+	<form id="upload-form" method="post" action="/upload" novalidate
+		data-max-file-bytes="<%= maxFileBytes %>"
+		data-max-total-bytes="<%= maxTotalBytes %>"
+		data-max-files="<%= maxFiles %>">
+
+		<div class="dropzone" id="dropzone" data-active="false">
+			<p class="dropzone__prompt">Drag files here</p>
+			<label class="btn btn--quiet" for="file-input">Choose files</label>
+			<input id="file-input" type="file" multiple>
+			<p class="dropzone__hint">Up to <%= maxFiles %> files, <%= maxFileLabel %> each.</p>
+		</div>
+
+		<ul class="staged" id="staged-list" aria-live="polite"></ul>
+
+		<label class="check" id="collection-toggle" hidden>
+			<input type="checkbox" id="as-collection" name="asCollection" value="1">
+			<span class="check__text">Keep these together as one collection
+				<small>One link opens a folder listing instead of separate links, with a "Download all" zip.</small>
+			</span>
+		</label>
+
+		<div class="field" id="collection-title-field" hidden>
+			<label for="collection-title">Collection name</label>
+			<input id="collection-title" name="collectionTitle" type="text" maxlength="120"
+				placeholder="Shared files">
+		</div>
+
+		<div class="field">
+			<label for="expiry">Delete these after</label>
+			<select id="expiry" name="expiryDays">
+				<% expiryOptions.forEach(function (option) { %>
+				<option value="<%= option.days %>" <%= option.days === defaultExpiryDays ? "selected" : "" %>><%= option.label %></option>
+				<% }); %>
+			</select>
+			<p class="field__hint">Files are deleted permanently when the time is up.</p>
+		</div>
+
+		<label class="check">
+			<input type="checkbox" id="with-pin" name="withPin" value="1">
+			<span class="check__text">Protect with a <%= pinLength %>-digit PIN
+				<small>Stops link previews and scrapers from opening the share when you post or email the URL. Anyone you give the PIN to can still open it.</small>
+			</span>
+		</label>
+
+		<p class="notice" id="upload-status" role="status" hidden></p>
+
+		<button type="submit" class="btn btn--block" id="submit-button" disabled>Upload and get a link</button>
+	</form>
+</div>
+<%~ include("@partials/foot", it) %>

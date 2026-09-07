@@ -1,0 +1,40 @@
+{
+	"Rules": [
+		{
+			"ID": "expire-1-day",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "d1/" },
+			"Expiration": { "Days": 1 }
+		},
+		{
+			"ID": "expire-3-days",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "d3/" },
+			"Expiration": { "Days": 3 }
+		},
+		{
+			"ID": "expire-7-days",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "d7/" },
+			"Expiration": { "Days": 7 }
+		},
+		{
+			"ID": "expire-14-days",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "d14/" },
+			"Expiration": { "Days": 14 }
+		},
+		{
+			"ID": "expire-30-days",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "d30/" },
+			"Expiration": { "Days": 30 }
+		},
+		{
+			"ID": "abort-incomplete-multipart",
+			"Status": "Enabled",
+			"Filter": { "Prefix": "" },
+			"AbortIncompleteMultipartUpload": { "DaysAfterInitiation": 1 }
+		}
+	]
+}

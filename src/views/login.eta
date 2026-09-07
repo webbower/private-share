@@ -1,0 +1,16 @@
+<%~ include("@partials/head", it) %>
+<div class="sheet">
+	<h1>Sign in to upload</h1>
+	<p class="lede">Enter your email address and we will send you a link that signs you in. Uploading is limited to a short list of addresses.</p>
+	<%~ include("@partials/flash", it) %>
+	<form method="post" action="/auth/request">
+		<div class="field">
+			<label for="email">Email address</label>
+			<input id="email" name="email" type="email" autocomplete="email" required
+				inputmode="email" autocapitalize="none" spellcheck="false" value="<%= typeof email !== "undefined" ? email : "" %>">
+			<p class="field__hint">The link works once and expires after 15 minutes.</p>
+		</div>
+		<button type="submit" class="btn btn--block">Email me a sign-in link</button>
+	</form>
+</div>
+<%~ include("@partials/foot", it) %>

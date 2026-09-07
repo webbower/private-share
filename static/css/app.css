@@ -1,0 +1,697 @@
+/* ==========================================================================
+   Private Share
+   A file goes to one person, once, and then it is gone. The interface borrows
+   from courier paperwork: a consignment slip, a reference code, a stamp. Cool
+   institutional greys, one postal blue for anything that acts, red reserved
+   strictly for destruction and expiry.
+   ========================================================================== */
+
+:root {
+	--ink: #14171c;
+	--ink-soft: #5a6472;
+	--paper: #ffffff;
+	--wash: #edeff3;
+	--wash-deep: #e0e4ea;
+	--rule: #c6ccd6;
+	--stamp: #1b45c4;
+	--stamp-deep: #123090;
+	--flag: #a62b1b;
+	--caution: #8a5a00;
+
+	--sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+	--gutter: 1.5rem;
+	--measure: 36rem;
+	--radius: 3px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--wash);
+	color: var(--ink);
+	font-family: var(--sans);
+	font-size: 1rem;
+	line-height: 1.55;
+}
+
+/* --- structure ----------------------------------------------------------- */
+
+.shell {
+	max-width: var(--measure);
+	margin: 0 auto;
+	padding: var(--gutter) var(--gutter) 4rem;
+}
+
+.masthead {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.25rem 0 1rem;
+	border-bottom: 2px solid var(--ink);
+	margin-bottom: 2rem;
+}
+
+.masthead__name {
+	margin: 0;
+	font-size: 1.0625rem;
+	font-weight: 620;
+	letter-spacing: -0.01em;
+}
+
+.masthead__name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.masthead__who {
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+}
+
+.masthead__who a {
+	color: var(--ink-soft);
+}
+
+.sheet {
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	padding: 1.75rem var(--gutter);
+}
+
+.sheet + .sheet {
+	margin-top: 1.25rem;
+}
+
+/* --- type ---------------------------------------------------------------- */
+
+h1 {
+	margin: 0 0 0.35rem;
+	font-size: 1.5rem;
+	font-weight: 640;
+	line-height: 1.2;
+	letter-spacing: -0.018em;
+	overflow-wrap: anywhere;
+}
+
+h2 {
+	margin: 2rem 0 0.75rem;
+	font-size: 1rem;
+	font-weight: 620;
+}
+
+p {
+	margin: 0 0 1rem;
+	max-width: 34rem;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+a {
+	color: var(--stamp);
+}
+
+.lede {
+	color: var(--ink-soft);
+	margin-bottom: 1.5rem;
+}
+
+.muted {
+	color: var(--ink-soft);
+	font-size: 0.875rem;
+}
+
+.code {
+	font-family: var(--mono);
+	font-variant-numeric: tabular-nums;
+}
+
+/* --- the slip -----------------------------------------------------------
+   The one bold element. Everything the uploader must keep lives inside it,
+   on a torn-off ticket with a perforated edge.
+   ------------------------------------------------------------------------ */
+
+.slip {
+	background: var(--paper);
+	border: 1px solid var(--ink);
+	border-top: none;
+	border-radius: 0 0 var(--radius) var(--radius);
+	padding: 1.5rem var(--gutter) 1.25rem;
+	position: relative;
+}
+
+.slip::before {
+	content: "";
+	display: block;
+	height: 6px;
+	margin: 0 calc(var(--gutter) * -1) 1.25rem;
+	background-image: repeating-linear-gradient(
+		90deg,
+		var(--ink) 0 7px,
+		transparent 7px 14px
+	);
+}
+
+.slip__row + .slip__row {
+	margin-top: 1.25rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--wash-deep);
+}
+
+.slip__label {
+	display: block;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	margin-bottom: 0.35rem;
+}
+
+.slip__note {
+	margin: 0.4rem 0 0;
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+}
+
+.slip__heading {
+	margin: 0 0 1rem;
+	font-size: 1rem;
+	font-weight: 600;
+	word-break: break-word;
+}
+
+.slip + .slip {
+	margin-top: 1rem;
+}
+
+.copyfield {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: stretch;
+}
+
+.copyfield input {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-family: var(--mono);
+	font-size: 0.875rem;
+	padding: 0.55rem 0.65rem;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	background: var(--wash);
+	color: var(--ink);
+}
+
+.copyfield input:focus-visible {
+	outline: 2px solid var(--stamp);
+	outline-offset: 1px;
+}
+
+.pin-display {
+	font-family: var(--mono);
+	font-size: 2rem;
+	font-weight: 600;
+	letter-spacing: 0.28em;
+	padding: 0.4rem 0 0.5rem;
+	font-variant-numeric: tabular-nums;
+}
+
+/* --- buttons ------------------------------------------------------------- */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	font: inherit;
+	font-weight: 560;
+	line-height: 1.2;
+	padding: 0.7rem 1.1rem;
+	border: 1px solid var(--stamp);
+	border-radius: var(--radius);
+	background: var(--stamp);
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.btn:hover {
+	background: var(--stamp-deep);
+	border-color: var(--stamp-deep);
+}
+
+.btn:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+.btn[disabled] {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.btn--block {
+	width: 100%;
+	padding: 0.9rem 1.1rem;
+	font-size: 1.0625rem;
+}
+
+.btn--quiet {
+	background: transparent;
+	color: var(--stamp);
+}
+
+.btn--quiet:hover {
+	background: var(--wash);
+	color: var(--stamp-deep);
+}
+
+.btn--danger {
+	background: var(--flag);
+	border-color: var(--flag);
+}
+
+.btn--danger:hover {
+	background: #8a2214;
+	border-color: #8a2214;
+}
+
+.btn--small {
+	padding: 0.45rem 0.7rem;
+	font-size: 0.8125rem;
+}
+
+.btn--copy {
+	background: transparent;
+	color: var(--ink);
+	border-color: var(--rule);
+	flex: 0 0 auto;
+	min-width: 4.5rem;
+}
+
+.btn--copy:hover {
+	background: var(--wash);
+	border-color: var(--ink-soft);
+}
+
+.btn--copy[data-copied="true"] {
+	color: var(--stamp);
+	border-color: var(--stamp);
+}
+
+/* --- forms --------------------------------------------------------------- */
+
+.field {
+	margin-bottom: 1.25rem;
+}
+
+.field > label {
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-bottom: 0.35rem;
+}
+
+.field input[type="email"],
+.field input[type="text"],
+.field select {
+	width: 100%;
+	font: inherit;
+	padding: 0.6rem 0.7rem;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	background: var(--paper);
+	color: var(--ink);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+	outline: 2px solid var(--stamp);
+	outline-offset: 1px;
+}
+
+.field__hint {
+	margin: 0.35rem 0 0;
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+}
+
+.check {
+	display: flex;
+	gap: 0.6rem;
+	align-items: flex-start;
+	padding: 0.75rem;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	margin-bottom: 1.25rem;
+	background: var(--paper);
+}
+
+.check input {
+	margin: 0.25rem 0 0;
+	flex: 0 0 auto;
+	width: 1rem;
+	height: 1rem;
+	accent-color: var(--stamp);
+}
+
+.check__text {
+	font-size: 0.9375rem;
+}
+
+.check__text small {
+	display: block;
+	color: var(--ink-soft);
+	font-size: 0.8125rem;
+}
+
+.check[hidden] {
+	display: none;
+}
+
+/* --- pin entry ----------------------------------------------------------- */
+
+.pin-entry {
+	font-family: var(--mono);
+	font-size: 1.75rem;
+	letter-spacing: 0.4em;
+	text-align: center;
+	width: 100%;
+	padding: 0.7rem 0.5rem;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	background: var(--paper);
+	color: var(--ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.pin-entry:focus-visible {
+	outline: 2px solid var(--stamp);
+	outline-offset: 1px;
+}
+
+/* --- drop zone ----------------------------------------------------------- */
+
+.dropzone {
+	border: 2px dashed var(--rule);
+	border-radius: var(--radius);
+	background: var(--paper);
+	padding: 2.25rem 1.25rem;
+	text-align: center;
+	margin-bottom: 1.25rem;
+	transition: border-color 120ms linear, background-color 120ms linear;
+}
+
+.dropzone[data-active="true"] {
+	border-color: var(--stamp);
+	background: #f2f5ff;
+}
+
+.dropzone__prompt {
+	margin: 0 0 0.75rem;
+	font-weight: 560;
+}
+
+.dropzone__hint {
+	margin: 0.75rem 0 0;
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+}
+
+.dropzone input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* --- staged file list ---------------------------------------------------- */
+
+.staged {
+	list-style: none;
+	margin: 0 0 1.25rem;
+	padding: 0;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	background: var(--paper);
+}
+
+.staged:empty {
+	display: none;
+}
+
+.staged__item {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.5rem 0.75rem;
+	align-items: center;
+	padding: 0.75rem;
+}
+
+.staged__item + .staged__item {
+	border-top: 1px solid var(--wash-deep);
+}
+
+.staged__title {
+	width: 100%;
+	font: inherit;
+	font-size: 0.9375rem;
+	padding: 0.4rem 0.5rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	background: var(--wash);
+	color: var(--ink);
+}
+
+.staged__title:hover {
+	border-color: var(--rule);
+}
+
+.staged__title:focus-visible {
+	outline: 2px solid var(--stamp);
+	outline-offset: 1px;
+	background: var(--paper);
+}
+
+.staged__meta {
+	grid-column: 1 / -1;
+	font-size: 0.75rem;
+	color: var(--ink-soft);
+	font-family: var(--mono);
+	overflow-wrap: anywhere;
+}
+
+.staged__remove {
+	background: none;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	color: var(--ink-soft);
+	font: inherit;
+	font-size: 0.8125rem;
+	padding: 0.35rem 0.5rem;
+	cursor: pointer;
+}
+
+.staged__remove:hover {
+	color: var(--flag);
+	border-color: var(--rule);
+}
+
+.staged__bar {
+	grid-column: 1 / -1;
+	height: 3px;
+	background: var(--wash-deep);
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.staged__bar span {
+	display: block;
+	height: 100%;
+	width: 0;
+	background: var(--stamp);
+}
+
+.staged__item[data-state="done"] .staged__bar span {
+	background: #1a7f4b;
+}
+
+.staged__item[data-state="failed"] .staged__bar span {
+	background: var(--flag);
+	width: 100% !important;
+}
+
+/* --- manifest (collection listing) --------------------------------------- */
+
+.manifest {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid var(--wash-deep);
+}
+
+.manifest__row {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.85rem 0;
+	border-bottom: 1px solid var(--wash-deep);
+}
+
+.manifest__name {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.manifest__name strong {
+	font-weight: 560;
+}
+
+.manifest__size {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+	font-family: var(--mono);
+}
+
+/* --- facts --------------------------------------------------------------- */
+
+.facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 1.25rem;
+	margin: 0 0 1.5rem;
+	padding: 0;
+	font-size: 0.875rem;
+	color: var(--ink-soft);
+	list-style: none;
+}
+
+.facts li {
+	white-space: nowrap;
+}
+
+/* --- notices ------------------------------------------------------------- */
+
+.notice {
+	border: 1px solid var(--rule);
+	border-left: 3px solid var(--ink-soft);
+	border-radius: var(--radius);
+	padding: 0.85rem 1rem;
+	margin-bottom: 1.25rem;
+	font-size: 0.9375rem;
+	background: var(--paper);
+}
+
+.notice--warn {
+	border-left-color: var(--caution);
+}
+
+.notice--error {
+	border-left-color: var(--flag);
+}
+
+.notice--keep {
+	border-left-color: var(--flag);
+	background: #fff8f7;
+}
+
+.notice p {
+	margin: 0;
+}
+
+.notice p + p {
+	margin-top: 0.5rem;
+}
+
+.notice__heading {
+	font-weight: 620;
+	margin-bottom: 0.35rem;
+}
+
+.tips {
+	margin: 0.5rem 0 0;
+	padding-left: 1.1rem;
+	font-size: 0.875rem;
+}
+
+.tips li + li {
+	margin-top: 0.3rem;
+}
+
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	align-items: center;
+	margin-top: 1.5rem;
+}
+
+.footer {
+	margin-top: 2.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--rule);
+	font-size: 0.8125rem;
+	color: var(--ink-soft);
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* --- responsive & motion ------------------------------------------------- */
+
+@media (max-width: 30rem) {
+	:root {
+		--gutter: 1rem;
+	}
+
+	.sheet {
+		padding: 1.25rem var(--gutter);
+	}
+
+	h1 {
+		font-size: 1.3125rem;
+	}
+
+	.pin-display {
+		font-size: 1.5rem;
+		letter-spacing: 0.2em;
+	}
+
+	.manifest__row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}
