@@ -23,10 +23,28 @@ import { ShareService, UploadError } from "~/services/shares.js";
 import { render } from "~/render.js";
 import { serveAsset } from "~/static.js";
 import { sign, unsign } from "~/lib/crypto.js";
+import { buildUploadSummary } from "~/lib/uploadSummary.js";
 import { LOCAL_STORAGE_PREFIX } from "~/io/LocalFileClient.js";
 
 const SESSION_COOKIE = "hoff_session";
 const pinCookieName = (shareId) => `hoff_pin_${shareId}`;
+
+/**
+ * The browser posts its IANA time zone with `/upload/complete` so the
+ * downloadable summary can show timestamps in the uploader's own local time.
+ * Returns `undefined` for anything missing or not a real zone, which leaves the
+ * formatters on the runtime's local zone (UTC on Deno Deploy).
+ */
+const resolveTimeZone = (value) => {
+	const tz = String(value ?? "").trim();
+	if (!tz) return undefined;
+	try {
+		new Intl.DateTimeFormat("en-US", { timeZone: tz });
+		return tz;
+	} catch {
+		return undefined;
+	}
+};
 
 /**
  * Nothing on this site should be crawled, indexed, or used as model training
@@ -346,10 +364,20 @@ export const createApp = (container) => {
 				};
 			});
 
+			const summary = buildUploadSummary({
+				items,
+				domain: tenant.domain,
+				timeZone: resolveTimeZone(form.tz),
+			});
+
 			return await html(c, "complete", {
 				title: "Ready to share",
 				currentEmail: c.get("session").email,
 				items,
+				summaryDownload: {
+					filename: summary.filename,
+					href: `data:text/plain;charset=utf-8,${encodeURIComponent(summary.body)}`,
+				},
 				now: clock.now(),
 				clientScript: "/assets/upload.js",
 			});

@@ -79,6 +79,19 @@ export const relativeExpiry = (expiresAt, nowMs) => {
 export const formatDate = (ms) =>
 	new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
+/**
+ * The "Sharing this safely" bullets. Rendered on the completion screen and
+ * copied verbatim (em dash flattened to a hyphen) into the upload-summary
+ * `.txt` download — kept in one place so the two cannot drift.
+ */
+export const SHARING_TIPS = Object.freeze([
+	"Send the link and the PIN separately — the link by email, the PIN by text or in person. Anyone who intercepts one message then has only half of it.",
+	"Anyone holding the link can open the share. Treat it like the files themselves rather than like a password-protected account.",
+	"The delete link works for anyone who has it, so do not post it anywhere you post the share link.",
+	"Pick the shortest expiry you can live with. It is the only cleanup that happens on its own.",
+	"Public posts get crawled within seconds. The PIN is what stops those crawlers, so use one whenever the link goes somewhere public.",
+]);
+
 /** Values every template can rely on existing. */
 const baseLocals = (data) => ({
 	title: "Private Share",
@@ -90,6 +103,7 @@ const baseLocals = (data) => ({
 	pinLength: PIN_LENGTH,
 	relativeExpiry,
 	formatDate,
+	sharingTips: SHARING_TIPS,
 	...data,
 });
 

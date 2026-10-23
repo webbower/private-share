@@ -172,7 +172,37 @@ Deno.test("completion screen always offers sharing guidance", async () => {
 		pin: null,
 		now: NOW,
 	});
-	assert.ok(root.querySelectorAll(".tips li").length >= 4);
+	assert.equal(root.querySelectorAll(".tips li").length, 5);
+});
+
+Deno.test("completion screen offers the details as a .txt download when one is supplied", async () => {
+	const withDownload = await dom("complete", {
+		share: singleFile.toViewModel(),
+		shareUrl: "https://test.local/s/shr1",
+		deleteUrl: "https://test.local/s/shr1/delete",
+		pin: null,
+		now: NOW,
+		summaryDownload: {
+			filename: "test.local Upload at Mar 1, 2026 1200pm.txt",
+			href: "data:text/plain;charset=utf-8,hello%20world",
+		},
+	});
+	const link = withDownload.querySelector(".actions a[download]");
+	assert.ok(link, "a download link is rendered");
+	assert.equal(link.getAttribute("download"), "test.local Upload at Mar 1, 2026 1200pm.txt");
+	assert.match(link.getAttribute("href"), /^data:text\/plain;charset=utf-8,/);
+	assert.match(link.text, /Save a copy of these details/);
+
+	// Absent when the local is not provided (e.g. the collection/one-file paths
+	// that render `complete` directly in other tests).
+	const without = await dom("complete", {
+		share: singleFile.toViewModel(),
+		shareUrl: "https://test.local/s/shr1",
+		deleteUrl: "https://test.local/s/shr1/delete",
+		pin: null,
+		now: NOW,
+	});
+	assert.equal(without.querySelector(".actions a[download]"), null);
 });
 
 Deno.test("completion screen states the expiry date", async () => {

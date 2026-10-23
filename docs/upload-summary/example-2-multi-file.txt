@@ -1,0 +1,42 @@
+# share.bower.family Upload at Sep 7, 2026 5:13pm
+
+3 files, shared as separate links. Each expires Sep 14, 2026.
+
+## Sharing this safely
+
+- Send the link and the PIN separately - the link by email, the PIN by text or in person. Anyone who intercepts one message then has only half of it.
+- Anyone holding the link can open the share. Treat it like the files themselves rather than like a password-protected account.
+- The delete link works for anyone who has it, so do not post it anywhere you post the share link.
+- Pick the shortest expiry you can live with. It is the only cleanup that happens on its own.
+- Public posts get crawled within seconds. The PIN is what stops those crawlers, so use one whenever the link goes somewhere public.
+
+---
+
+## Q3 report
+
+Saved as q3-report-final.pdf
+
+- Share link: https://share.bower.family/s/a1b2c3d4e5f6g7h8i9j0k1l2
+- Delete link: https://share.bower.family/s/a1b2c3d4e5f6g7h8i9j0k1l2/delete
+- PIN: 100001
+- Uploaded: Sep 7, 2026 5:13pm
+- Expires: Sep 14, 2026 5:13pm (7 days after upload)
+- Size: 2.4 MB
+
+## budget.xlsx
+
+- Share link: https://share.bower.family/s/m3n4o5p6q7r8s9t0u1v2w3x4
+- Delete link: https://share.bower.family/s/m3n4o5p6q7r8s9t0u1v2w3x4/delete
+- PIN: 100002
+- Uploaded: Sep 7, 2026 5:13pm
+- Expires: Sep 14, 2026 5:13pm (7 days after upload)
+- Size: 512 KB
+
+## notes.txt
+
+- Share link: https://share.bower.family/s/y5z6a7b8c9d0e1f2g3h4i5j6
+- Delete link: https://share.bower.family/s/y5z6a7b8c9d0e1f2g3h4i5j6/delete
+- PIN: 100003
+- Uploaded: Sep 7, 2026 5:13pm
+- Expires: Sep 14, 2026 5:13pm (7 days after upload)
+- Size: 4.0 KB

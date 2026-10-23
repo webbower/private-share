@@ -287,6 +287,8 @@ const handOffToServer = ({ shareId, withPin, zipSize }) => {
 	field("shareId", shareId);
 	field("withPin", withPin ? "1" : "0");
 	field("zipSize", zipSize);
+	// So the downloadable summary shows timestamps in the uploader's own zone.
+	field("tz", Intl.DateTimeFormat().resolvedOptions().timeZone || "");
 
 	document.body.append(form);
 	form.submit();

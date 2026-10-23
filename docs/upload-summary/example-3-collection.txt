@@ -1,0 +1,28 @@
+# North Elevations - uploaded to share.bower.family at Sep 7, 2026 5:13pm
+
+Collection of 3 files (3.0 MB) behind one link. Expires Sep 14, 2026.
+
+## Sharing this safely
+
+- Send the link and the PIN separately - the link by email, the PIN by text or in person. Anyone who intercepts one message then has only half of it.
+- Anyone holding the link can open the share. Treat it like the files themselves rather than like a password-protected account.
+- The delete link works for anyone who has it, so do not post it anywhere you post the share link.
+- Pick the shortest expiry you can live with. It is the only cleanup that happens on its own.
+- Public posts get crawled within seconds. The PIN is what stops those crawlers, so use one whenever the link goes somewhere public.
+
+---
+
+## North Elevations
+
+- Share link: https://share.bower.family/s/p9q8r7s6t5u4v3w2x1y0z9a8
+- Delete link: https://share.bower.family/s/p9q8r7s6t5u4v3w2x1y0z9a8/delete
+- PIN: 482913
+- Uploaded: Sep 7, 2026 5:13pm
+- Expires: Sep 14, 2026 5:13pm (7 days after upload)
+- Total size: 3.0 MB
+
+### Files in this collection
+
+1. North elevation (north.jpg) - 1.0 MB
+2. South elevation (south.jpg) - 2.0 MB
+3. notes.pdf - 50 KB

@@ -1,0 +1,24 @@
+# share.bower.family Upload at Sep 7, 2026 5:13pm
+
+One file. Expires Sep 14, 2026.
+
+## Sharing this safely
+
+- Send the link and the PIN separately - the link by email, the PIN by text or in person. Anyone who intercepts one message then has only half of it.
+- Anyone holding the link can open the share. Treat it like the files themselves rather than like a password-protected account.
+- The delete link works for anyone who has it, so do not post it anywhere you post the share link.
+- Pick the shortest expiry you can live with. It is the only cleanup that happens on its own.
+- Public posts get crawled within seconds. The PIN is what stops those crawlers, so use one whenever the link goes somewhere public.
+
+---
+
+## Q3 report
+
+Saved as q3-report-final.pdf
+
+- Share link: https://share.bower.family/s/k8s0mqf9d2wnvb4x7j3h5p1a
+- Delete link: https://share.bower.family/s/k8s0mqf9d2wnvb4x7j3h5p1a/delete
+- PIN: 482913
+- Uploaded: Sep 7, 2026 5:13pm
+- Expires: Sep 14, 2026 5:13pm (7 days after upload)
+- Size: 2.4 MB
