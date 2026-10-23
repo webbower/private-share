@@ -99,9 +99,9 @@ const REGISTRY = {
 			allowedEmails: [
 				"webbower@gmail.com",
 			],
-			maxFileBytes: 200 * 1024 * 1024,
+			maxFileBytes: 1024 * 1024 * 1024,
 			maxFilesPerUpload: 25,
-			maxCollectionBytes: 500 * 1024 * 1024,
+			maxCollectionBytes: 1024 * 1024 * 1024,
 			bucketPrefix: "bower-share",
 		},
 		{
